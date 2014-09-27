@@ -308,13 +308,9 @@ Menu.prototype = {
 
 
         // Pitch
-        this.pitchText = this.game.add.bitmapText(69, 500, 'fontSquareBB', 'DELUXE', 40);
+        this.pitchText = this.game.add.bitmapText(150, 500, 'fontSquareBB', 'DELUXE', 52);
         this.game.add.tween(this.pitchText).to({y: 60}, 1000).easing(Phaser.Easing.Bounce.Out).delay(1250).start();
 
-        // Duration
-
-        this.durationText = this.game.add.bitmapText(90, 500, 'fontSquareBB', 'PLAY THIRTY THREE SECONDS', 22);
-        this.game.add.tween(this.durationText).to({y: 200}, 1000).easing(Phaser.Easing.Bounce.Out).delay(1750).start();
 
         // Button
 
