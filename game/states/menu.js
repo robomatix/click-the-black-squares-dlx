@@ -1,30 +1,85 @@
-
 'use strict';
-function Menu() {}
+function Menu() {
+}
 
 Menu.prototype = {
-  preload: function() {
 
-  },
-  create: function() {
-    var style = { font: '65px Arial', fill: '#ffffff', align: 'center'};
-    this.sprite = this.game.add.sprite(this.game.world.centerX, 138, 'yeoman');
-    this.sprite.anchor.setTo(0.5, 0.5);
+    preload: function () {
 
-    this.titleText = this.game.add.text(this.game.world.centerX, 300, '\'Allo, \'Allo!', style);
-    this.titleText.anchor.setTo(0.5, 0.5);
+    },
 
-    this.instructionsText = this.game.add.text(this.game.world.centerX, 400, 'Click anywhere to play "Click The Yeoman Logo"', { font: '16px Arial', fill: '#ffffff', align: 'center'});
-    this.instructionsText.anchor.setTo(0.5, 0.5);
+    create: function () {
 
-    this.sprite.angle = -20;
-    this.game.add.tween(this.sprite).to({angle: 20}, 1000, Phaser.Easing.Linear.NONE, true, 0, 1000, true);
-  },
-  update: function() {
-    if(this.game.input.activePointer.justPressed()) {
-      this.game.state.start('play');
+        /* Screen
+         ******************************/
+
+        // Title
+
+        this.titleText = this.game.add.bitmapText(10, 500, 'fontSquareBB', 'CLICK THE BLACK SQUARES', 40);
+        this.game.add.tween(this.titleText).to({y: 10}, 1000).easing(Phaser.Easing.Bounce.Out).start();
+
+
+        // Pitch
+        this.pitchText = this.game.add.bitmapText(69, 500, 'fontSquareBB', 'DELUXE', 40);
+        this.game.add.tween(this.pitchText).to({y: 60}, 1000).easing(Phaser.Easing.Bounce.Out).delay(1250).start();
+
+        // Duration
+
+        this.durationText = this.game.add.bitmapText(90, 500, 'fontSquareBB', 'PLAY THIRTY THREE SECONDS', 22);
+        this.game.add.tween(this.durationText).to({y: 200}, 1000).easing(Phaser.Easing.Bounce.Out).delay(1750).start();
+
+        // Button
+
+        this.startButton = this.game.add.button(this.game.world.centerX, 525, 'startBtn', this.actionOnClickStartButton, this, 1, 0, 2);
+        this.startButton.anchor.setTo(0.5, 0.5);
+        this.game.add.tween(this.startButton).to({y: this.game.world.centerY}, 1000).easing(Phaser.Easing.Bounce.Out).delay(2000).start();
+
+        this.muteButton = this.game.add.button(this.game.world.centerX, 525, 'mute', this.toggleSound, this, 3, 0);
+        this.muteButton.anchor.setTo(0.5, 0.5);
+        this.game.add.tween(this.muteButton).to({y: 440}, 500).easing(Phaser.Easing.Bounce.Out).delay(3500).start();
+
+
+        /* Add sound
+         ********************/
+        this.game.onStartGame = this.game.add.audio('onStartGame');
+        this.game.clickBlackSquareSound = this.game.add.audio('clickBlackSquare');
+
+
+    },
+
+    update: function () {
+
+    },
+
+    actionOnClickStartButton: function (btn) {
+
+        // Sound
+        this.game.onStartGame.play();
+
+        // Go to the actual game
+        this.game.state.start('play');
+
+    },
+
+
+    toggleSound: function () {
+
+        if (this.game.sound.mute) {
+
+            this.muteButton.setFrames(3, 0);
+            this.muteButton.frame = 0;
+            this.game.sound.mute = false;
+
+        } else {
+
+            this.muteButton.setFrames(1, 2);
+            this.muteButton.frame = 2;
+            this.game.sound.mute = true;
+
+        }
+
     }
-  }
+
 };
 
 module.exports = Menu;
