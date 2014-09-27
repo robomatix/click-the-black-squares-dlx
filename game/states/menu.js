@@ -26,7 +26,7 @@ Menu.prototype = {
 
         // Button
 
-        this.startButton = this.game.add.button(this.game.world.centerX, 525, 'startBtn', this.actionOnClickStartButton, this, 1, 0, 2);
+        this.startButton = this.game.add.button(this.game.world.centerX, 529, 'startBtn', this.actionOnClickStartButton, this, 1, 0, 2);
         this.startButton.anchor.setTo(0.5, 0.5);
         this.game.add.tween(this.startButton).to({y: this.game.world.centerY}, 1000).easing(Phaser.Easing.Bounce.Out).delay(2000).start();
 
