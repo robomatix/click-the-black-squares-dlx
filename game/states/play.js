@@ -18,6 +18,7 @@ Play.prototype = {
          ********************/
         this.totalDuration = 33;
         this.CountdownDisplay = this.totalDuration;
+        this.game.countIteration = 0;
         this.game.score = 0;
         // Best score
         if (!!localStorage) {
@@ -40,8 +41,8 @@ Play.prototype = {
         this.game.explosionEmitter.makeParticles('square');
         this.game.explosionEmitter.setYSpeed(-250, 250);
         this.game.explosionEmitter.setXSpeed(-250, 250);
-        this.game.explosionEmitter.minParticleScale = 0.2;
-        this.game.explosionEmitter.maxParticleScale = 0.5;
+        this.game.explosionEmitter.minParticleScale = 0.1;
+        this.game.explosionEmitter.maxParticleScale = 0.33;
         this.game.explosionEmitter.gravity = 0;
 
         /* Display countdown
@@ -78,10 +79,12 @@ Play.prototype = {
     },
     generateSquares: function () {
 
-        var squareGroup = this.squares.getFirstExists(false);
-        if (!squareGroup) {
-            squareGroup = new SquareGroup(this.game, this.squares);
-        }
+        this.game.countIteration++;
+
+       var squareGroup = this.squares.getFirstExists(false);
+       if (!squareGroup) {
+           var squareGroup = new SquareGroup(this.game, this.squares);
+       }
         squareGroup.reset(0, 0);
 
     },
@@ -178,7 +181,7 @@ Play.prototype = {
             }
 
             // Display earned credits
-            sprite.displayCredit(sprite.credit, sprite.x, sprite.y);
+            sprite.displayCreditOnClicked(sprite.credit, sprite.x, sprite.y);
 
             // Sound
             this.game.clickBlackSquareSound.play();

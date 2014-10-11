@@ -19,13 +19,20 @@ Square = function (game, x, y, frame) {
     this.inputEnabled = true;
     this.events.onInputDown.add(this.clicked, this);
 
-    // Some variables
+    // Some variables initialised
     this.hasScored = false;
     this.hasBeenclicked = false;
     this.credit = 0;
     this.creditString = "";
     this.thisYCreditTo = 0;
     this.thisXCredit = 0;
+    this.velocityY = 0;
+
+    // Some random values
+    this.credit = this.game.rnd.integerInRange(1, 10);
+    this.velocityY = -this.game.rnd.integerInRange(64, 188);
+
+    this.body.velocity.y = this.velocityY;
 
 
 };
@@ -39,12 +46,9 @@ Square.prototype.update = function () {
 
 };
 
-Square.prototype.goUp = function (velocityY) {
 
-    this.body.velocity.y = -velocityY;
 
-};
-Square.prototype.displayCredit = function (credit, x, y) {
+Square.prototype.displayCreditOnClicked = function (credit, x, y) {
 
     this.creditString = "+" + credit.toString();
 
